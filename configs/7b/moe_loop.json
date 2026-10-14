@@ -1,0 +1,68 @@
+{
+  "model": {
+    "name": "moe_loop_7b",
+    "architecture": "moe_loop",
+    "block_size": 4096,
+    "vocab_size": 32000,
+    "n_layer": 20,
+    "n_embd": 1552,
+    "n_head": 8,
+    "n_query_groups": 2,
+    "num_experts": 93,
+    "num_experts_per_tok": 8,
+    "moe_intermediate_size": 776,
+    "moe_backend": "grouped_mm",
+    "router_aux_loss_coef": 0.001,
+    "initializer_range": 0.02,
+    "norm_eps": 1e-06,
+    "attention_backend": "flash",
+    "mlp_backend": "flash",
+    "attention_head_dim": 154
+  },
+  "training": {
+    "global_batch_size": 256,
+    "micro_batch_size": 4,
+    "seed": 3407,
+    "learning_rate": 0.001,
+    "min_lr": 0.0001,
+    "warmup_steps": 500,
+    "decay_fraction": 0.2,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "grad_clip": 1.0,
+    "log_every": 10
+  },
+  "budgets": {
+    "5B": {
+      "steps": 4756,
+      "branch_step": 3804,
+      "prediction_tokens": 4987027456
+    },
+    "10B": {
+      "steps": 9511,
+      "branch_step": 7609,
+      "prediction_tokens": 9973006336
+    },
+    "20B": {
+      "steps": 19024,
+      "branch_step": 15219,
+      "prediction_tokens": 19948109824
+    },
+    "40B": {
+      "steps": 38048,
+      "branch_step": 30438,
+      "prediction_tokens": 39896219648
+    },
+    "70B": {
+      "steps": 66585,
+      "branch_step": 53267,
+      "prediction_tokens": 69819432960
+    },
+    "140B": {
+      "steps": 133170,
+      "branch_step": 106536,
+      "prediction_tokens": 139638865920
+    }
+  }
+}
