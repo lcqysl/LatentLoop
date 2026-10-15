@@ -15,6 +15,7 @@ configs/
   7b/{moe_base,moe_loop,latentloop}.json
 model/              # Transformer, sparse MoE, latent operators, and token reader
 pretrain.py          # Single-process and torchrun training
+inference.py         # Load released checkpoints and generate text
 prepare_data.py      # Offline Parquet/SentencePiece data preparation
 requirements.txt
 requirements-data.txt
@@ -204,6 +205,28 @@ Resume requires the same model, data, optimizer settings, global/micro batch, pr
 ## Evaluation
 
 Downstream results in the paper use [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness), version 0.4.13 ([commit ddd6722](https://github.com/EleutherAI/lm-evaluation-harness/tree/ddd67220430a2470529f25fd5c05a576ca1057a0)). We evaluate `lambada_openai`, `lambada_standard`, `hellaswag`, `piqa`, `winogrande`, `arc_easy`, `arc_challenge`, `sciq`, and `mmlu_continuation`, each in 0-shot and 5-shot settings with few-shot seed 1234 and one evaluation per setting. No chat template or special prefix token is added. We report `acc_norm` for HellaSwag, PIQA, ARC-Easy, ARC-Challenge, and SciQ, and `acc` for the two LAMBADA tasks, WinoGrande, and MMLU continuation; the final average gives equal weight to the nine benchmark scores. For LAMBADA OpenAI at 5-shot, explicitly use the test example pool and exclude the current question. Use FP32 model weights with BF16 forward computation; score continuations with FP32 cross-entropy and FP64 log-probability sums, truncating overlong contexts from the left while retaining the complete scored continuation. To connect these native PyTorch checkpoints to the harness, follow its [custom model guide](https://github.com/EleutherAI/lm-evaluation-harness/blob/main/docs/model_guide.md).
+
+## Pretrained checkpoints
+
+The largest-budget LatentLoop checkpoint at each scale is available in [yhx12/LatentLoop](https://huggingface.co/yhx12/LatentLoop). Each subfolder contains a separate FP32 model in sharded Safetensors format, its configuration, tokenizer, and training summary.
+
+| Model | Reference token budget | HF subfolder |
+| --- | --- | --- |
+| LatentLoop 1.3B | 40B | [1.3B-40B](https://huggingface.co/yhx12/LatentLoop/tree/main/1.3B-40B) |
+| LatentLoop 3B | 70B | [3B-70B](https://huggingface.co/yhx12/LatentLoop/tree/main/3B-70B) |
+| LatentLoop 7B | 140B | [7B-140B](https://huggingface.co/yhx12/LatentLoop/tree/main/7B-140B) |
+
+Install the optional loading dependencies and select a checkpoint directly:
+
+```bash
+pip install -r requirements-inference.txt
+python inference.py --model yhx12/LatentLoop --subfolder 1.3B-40B \
+  --prompt "The capital of France is" --max-new-tokens 32
+```
+
+Use `3B-70B` or `7B-140B` for another scale. The loader downloads only the selected checkpoint, validates its tensor index, and retains the original FP32 parameters. CUDA generation uses BF16 autocast, PyTorch SDPA, grouped MoE GEMMs, and PyTorch SwiGLU by default. To select the paper's optional FlashAttention/SwiGLU extensions, pass `--attention-backend flash --mlp-backend flash`. CPU reference inference is available with `--device cpu`. These are base pretrained language models; prompts are encoded without an added BOS or chat template.
+
+The HF model card includes the paper's 0-shot and 5-shot results, original checkpoint hashes, and actual FLOPs-matched token counts. Optimizer and RNG states are omitted from these inference checkpoints.
 
 ## Model use
 
