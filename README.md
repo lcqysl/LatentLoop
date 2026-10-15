@@ -1,6 +1,6 @@
 # LatentLoop
 
-<a href="https://arxiv.org/abs/2610.19975"><img src="https://img.shields.io/badge/arXiv-paper-b31b1b?logo=arxiv&logoColor=white" alt="Paper"></a>&nbsp;&nbsp;<a href="https://latentloop-project.github.io/"><img src="https://img.shields.io/badge/%F0%9F%8C%90%20Project-Page-2563eb" alt="Project Page"></a>
+<a href="https://arxiv.org/abs/2610.19975"><img src="https://img.shields.io/badge/arXiv-paper-b31b1b?logo=arxiv&logoColor=white" alt="Paper"></a>&nbsp;&nbsp;<a href="https://latentloop-project.github.io/"><img src="https://img.shields.io/badge/%F0%9F%8C%90%20Project-Page-2563eb" alt="Project Page"></a>&nbsp;&nbsp;<a href="https://huggingface.co/yhx12/LatentLoop"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-ffc107" alt="Models"></a>
 
 **LatentLoop: Scaling Looped MoE Models with Asymmetric Compute Allocation**
 
