@@ -1,7 +1,6 @@
 # LatentLoop
 
-<!-- Temporary Paper URL: replace with the LatentLoop arXiv identifier after submission. -->
-<a href="https://arxiv.org/abs/2512.24165"><img src="https://img.shields.io/badge/arXiv-paper-b31b1b?logo=arxiv&logoColor=white" alt="Paper"></a>&nbsp;&nbsp;<a href="https://latentloop-project.github.io/"><img src="https://img.shields.io/badge/%F0%9F%8C%90%20Project-Page-2563eb" alt="Project Page"></a>
+<a href="https://arxiv.org/abs/2610.19975"><img src="https://img.shields.io/badge/arXiv-paper-b31b1b?logo=arxiv&logoColor=white" alt="Paper"></a>&nbsp;&nbsp;<a href="https://latentloop-project.github.io/"><img src="https://img.shields.io/badge/%F0%9F%8C%90%20Project-Page-2563eb" alt="Project Page"></a>
 
 **LatentLoop: Scaling Looped MoE Models with Asymmetric Compute Allocation**
 
@@ -231,3 +230,16 @@ with torch.inference_mode(), torch.autocast("cuda", dtype=torch.bfloat16):
 Copyright 2026 LatentLoop contributors.
 
 LatentLoop's original code and modifications are licensed under the [Apache License 2.0](LICENSE) (`Apache-2.0`). Third-party source portions retain their original licenses and copyright notices; see [NOTICE](NOTICE).
+
+## Citation
+
+If you find this work useful, please cite:
+
+```bibtex
+@article{he2026latentloop,
+  title={LatentLoop: Scaling Looped MoE Models with Asymmetric Compute Allocation},
+  author={He, Zefeng and Chai, Yunkai and Chen, Xiaoyang and Zhu, Tong and Wu, Zongliang and Luo, Yun and Li, Yafu and Cheng, Yu},
+  journal={arXiv preprint arXiv:2610.19975},
+  year={2026}
+}
+```
